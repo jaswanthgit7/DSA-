@@ -3,7 +3,7 @@ class Solution {
         int n=nums.length;
         Arrays.sort(nums);
         int left=0;
-        int right=nums.length-1;
+        int right=n-1;
         int max=Integer.MIN_VALUE;
         while(left<right){
           max=Math.max(nums[left]+nums[right],max);
