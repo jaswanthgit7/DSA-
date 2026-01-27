@@ -1,23 +1,29 @@
 class Solution {
+    private int[][] dp;
     public int longestPalindromeSubseq(String s) {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(s);
-        String s2 = sb.reverse().toString();
-
-        int m = s.length();
-        int dp[][] = new int[m + 1][m + 1];
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= m; j++) {
-                if (s.charAt(i - 1) == s2.charAt(j - 1)) {
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-                } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-                }
+        String reversed = new StringBuilder(s).reverse().toString();
+        int n = s.length();
+        dp = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i][j] = -1;
             }
         }
-
-        return dp[m][m];
-
+        return findCommon(0, 0, s, reversed);
+    }
+    public int findCommon(int index1, int index2, String word1, String word2) {
+        if (index1 >= word1.length() || index2 >= word2.length()) {
+            return 0;
+        }
+        if (dp[index1][index2] != -1) {
+            return dp[index1][index2];
+        }
+        if (word1.charAt(index1) == word2.charAt(index2)) {
+            return dp[index1][index2] = 1 + findCommon(index1 + 1, index2 + 1, word1, word2);
+        }
+        return dp[index1][index2] = Math.max(
+            findCommon(index1, index2 + 1, word1, word2),
+            findCommon(index1 + 1, index2, word1, word2)
+        );
     }
 }
