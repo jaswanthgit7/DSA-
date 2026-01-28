@@ -1,9 +1,7 @@
 class Solution {
-
     boolean solve(int m, int[] weights, int d) {
         long sum = 0;
         int days = 1;
-
         for (int a : weights) {
             if (sum + a > m) {
                 days++;
@@ -16,14 +14,11 @@ class Solution {
     }
 
     public int shipWithinDays(int[] weights, int days) {
-
         int s = 0, l = 0;
-
         for (int a : weights) {
             l += a;
             s = Math.max(s, a);
         }
-
         while (s < l) {
             int mid = s + (l - s) / 2;
 
